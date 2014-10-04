@@ -17,8 +17,8 @@ pip install slackpy
 ```python
 import slackpy
 
-AUTH_TOKEN = 'hogehoge'
-ROOM_ID = 10000
+AUTH_TOKEN = 'your_api_token'
+CHANNEL = '#your_channel'
 USER_NAME = 'Logger'
 
 # Create a new instance.
