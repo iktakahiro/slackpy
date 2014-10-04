@@ -7,56 +7,17 @@ import os
 import requests
 import json
 from argparse import ArgumentParser
-from copy import deepcopy
 
 
-class HipChatLogger:
-    def __init__(self, auth_token, room_id, base_uri='https://api.hipchat.com/v2/', response_format='json',
-                 http_proxy='', https_proxy=''):
+class SlackLogger:
+    def __init__(self, auth_token, channel, username):
 
+        self.base_uri = 'https://slack.com/api/chat.postMessage'
         self.auth_token = auth_token
-        self.room_id = room_id
-        self.base_uri = base_uri
-        self.response_format = response_format
-        self.http_proxy = http_proxy
-        self.https_proxy = https_proxy
+        self.channel = channel
+        self.username = username
 
-    def __post(self, post_params, endpoint):
-        """POST HTTP Request.
-
-        Args:
-            post_params:
-            endpoint:
-
-        Returns:
-            response:
-
-        Raises:
-            TODO:
-
-        """
-        __post_params = deepcopy(post_params)
-
-        headers = {'content-type': 'application/json'}
-
-        proxy_dict = {}
-        if self.http_proxy:
-            proxy_dict['http'] = self.http_proxy
-        if self.https_proxy:
-            proxy_dict['https'] = self.https_proxy
-
-        uri = self.base_uri + endpoint + '?auth_token=' + self.auth_token
-
-        if not proxy_dict:
-            proxy_dict = None
-
-        http = requests.session()
-        response = http.post(uri, data=json.dumps(__post_params), headers=headers, proxies=proxy_dict)
-        http.close()
-
-        return response
-
-    def __send_notification(self, message, message_format='html', notify=False, color='yellow'):
+    def __send_notification(self, title, message, color='good'):
         """Send a message to a room.
 
         Args:
@@ -73,59 +34,69 @@ class HipChatLogger:
             TODO:
 
         """
-
-        params = {
-            "message": message,
-            "message_format": message_format,
-            "notify": notify,
+        __fields = {
+            "title": title,
+            "text": message,
             "color": color
         }
 
-        endpoint = 'room/' + str(self.room_id) + '/notification'
+        __attachments = {
+            "fallback": title,
+            "fields": __fields
+        }
 
-        response = self.__post(params, endpoint)
+        params = {
+            "token": self.auth_token,
+            "channel": self.channel,
+            "username": self.username,
+            "parse": "full",
+            "attachments": json.dumps(__attachments)
+        }
 
-        return response.status_code
+        requests.post(self.base_uri, data=params)
 
-    def info(self, message, message_format='html'):
+    def info(self, title, message):
 
-        return self.__send_notification(message=message, message_format=message_format, notify=False, color='green')
+        title = 'INFO : {0}'.format(title)
+        return self.__send_notification(title=title, message=message, color='good')
 
-    def warn(self, message, message_format='html'):
+    def warn(self, title, message):
 
-        return self.__send_notification(message=message, message_format=message_format, notify=True, color='yellow')
+        title = 'WARN : {0}'.format(title)
+        return self.__send_notification(title=title, message=message, color='warning')
 
-    def error(self, message, message_format='html'):
+    def error(self, title, message):
 
-        return self.__send_notification(message=message, message_format=message_format, notify=True, color='red')
+        title = 'ERROR : {0}'.format(title)
+        return self.__send_notification(title=title, message=message, color='danger')
 
 
 def main():
     try:
-        auth_token = os.environ["HIPCHAT_TOKEN"]
+        auth_token = os.environ["SLACK_TOKEN"]
 
     except KeyError:
-        print('ERROR: Please set the HIPCHAT_TOKEN variable in your environment.')
+        print('ERROR: Please set the SLACK_TOKEN variable in your environment.')
 
     else:
-        parser = ArgumentParser(description='hipchatpy command line tool')
-        parser.add_argument('-r', '--room', required=True, help='Room ID')
+        parser = ArgumentParser(description='slackpy command line tool')
+        parser.add_argument('-c', '--channel', required=True, help='Channel')
+        parser.add_argument('-t', '--title', type=str, required=False, help='Title')
         parser.add_argument('-m', '--message', type=str, required=True, help='Message')
         parser.add_argument('-l', '--level', type=int, default=1, choices=[1, 2, 3])
-        parser.add_argument('-f', '--format', type=str, default='html', choices=['html', 'text'])
 
         args = parser.parse_args()
 
-        client = HipChatLogger(auth_token, args.room)
+        client = SlackLogger(auth_token, args.channel, 'Logger')
 
         if args.level == 1:
-            response = client.info(args.message, message_format=args.format)
+            response = client.info(args.title, args.message)
 
         if args.level == 2:
-            response = client.warn(args.message, message_format=args.format)
+            response = client.warn(args.title, args.message)
 
         if args.level == 3:
-            response = client.error(args.message, message_format=args.format)
+            response = client.error(args.title, args.message)
 
         if response == 204:
             print(True)
