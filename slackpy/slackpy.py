@@ -96,7 +96,7 @@ def main():
         if args.level == 3:
             response = client.error(args.title, args.message)
 
-        if response == 200:
+        if response.status_code == 200:
             print(True)
 
         else:
