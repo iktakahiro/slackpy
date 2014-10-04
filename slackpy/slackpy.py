@@ -18,21 +18,17 @@ class SlackLogger:
         self.username = username
 
     def __send_notification(self, title, message, color='good'):
-        """Send a message to a room.
-
+        """Send a message to a channel.
         Args:
-            message: The message body. 10,000 characters max.
-            message_format: Determines how the message is treated by our server and rendered inside HipChat applications.
-            notify: Whether or not this message should trigger a notification for people in the room.
-            color: Background color for message.
-                   One of "yellow", "red", "green", "purple", "gray", or "random". (default: yellow)
+            title: The message title.
+            message: The message body.
+            color: Can either be one of 'good', 'warning', 'danger', or any hex color code
 
         Returns:
-            response:
+            api_response:
 
         Raises:
             TODO:
-
         """
         __fields = {
             "title": title,
@@ -53,7 +49,9 @@ class SlackLogger:
             "attachments": json.dumps(__attachments)
         }
 
-        requests.post(self.base_uri, data=params)
+        response = requests.post(self.base_uri, data=params)
+
+        return response
 
     def info(self, title, message):
 
@@ -98,7 +96,7 @@ def main():
         if args.level == 3:
             response = client.error(args.title, args.message)
 
-        if response == 204:
+        if response == 200:
             print(True)
 
         else:
