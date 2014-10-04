@@ -23,7 +23,7 @@ Sample Code
     import slackpy
 
     AUTH_TOKEN = 'your_api_token'
-    CHANNEL = 'your_channel'
+    CHANNEL = '#your_channel'
     USER_NAME = 'Logger'
 
     # Create a new instance.
@@ -41,15 +41,15 @@ Sample Code
 Correspondence table
 ~~~~~~~~~~~~~~~~~~~~
 
-+-----------+---------------+----------+----------+
-| Method    | LogLevel      | Notify   | Color    |
-+===========+===============+==========+==========+
-| info()    | INFO (1)      | False    | green    |
-+-----------+---------------+----------+----------+
-| warn()    | WARNING (2)   | True     | yellow   |
-+-----------+---------------+----------+----------+
-| error()   | ERROR (3)     | True     | red      |
-+-----------+---------------+----------+----------+
++-----------+---------------+--------------------+
+| Method    | LogLevel      | Color              |
++===========+===============+====================+
+| info()    | INFO (1)      | good (green)       |
++-----------+---------------+--------------------+
+| warn()    | WARNING (2)   | warning (orange)   |
++-----------+---------------+--------------------+
+| error()   | ERROR (3)     | danger (red)       |
++-----------+---------------+--------------------+
 
 Command line
 ------------
