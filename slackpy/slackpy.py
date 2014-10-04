@@ -33,11 +33,11 @@ class SlackLogger:
         __fields = {
             "title": title,
             "text": message,
-            "color": color
+            "color": color,
+            "fallback": title,
         }
 
         __attachments = {
-            "fallback": title,
             "fields": __fields
         }
 
