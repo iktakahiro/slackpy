@@ -48,11 +48,14 @@ error() | ERROR (3) | True | red
 export SLACK_TOKEN=your_api_token
 
 # LogLevel: INFO
-slackpy 10000 -m 'INFO Message' -l 1
+slackpy -c 'your_channel' -m 'INFO Message' -l 1
 
 # LogLevel: WARN
-slackpy -r 10000 -m 'WARN Message' -l 2
+slackpy -c 'your_channel' -m 'WARN Message' -l 2
 
 # LogLevel: ERROR
-slackpy -r 10000 -m 'ERROR Message' -l 3
+slackpy -c 'your_channel' -m 'ERROR Message' -l 3
+
+# LogLevel: INFO (with Message Title)
+slackpy -c 'your_channel' -t 'Message Title' -m 'INFO Message' -l 1
 ```
