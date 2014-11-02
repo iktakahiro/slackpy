@@ -20,6 +20,7 @@ import slackpy
 SUB_DOMAIN = 'your_sub_domain' # if your domain is test.slack.com, input 'test'.
 AUTH_TOKEN = 'your_web_hook_token'
 CHANNEL = '#general'
+>>>>>>> release/0.1.0
 USER_NAME = 'Logger'
 
 # Create a new instance.
@@ -37,11 +38,11 @@ logging.error(message='ERROR Message')
 
 ### Correspondence table
 
-  Method     LogLevel       Notify    Color
-  ---------- -------------- --------- ---------
-  info()     INFO (1)       False     green
-  warn()     WARNING (2)    True      yellow
-  error()    ERROR (3)      True      red
+Method | LogLevel | Color
+:----: | :------: | :----:
+info() | INFO (1) | good (green)
+warn() | WARNING (2) | warning (orange)
+error() | ERROR (3) | danger (red)
 
 ## Command line
 
