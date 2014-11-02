@@ -8,7 +8,11 @@ __author__ = 'Takahiro Ikeuchi'
 
 setup(
     name="slackpy",
+<<<<<<< HEAD
     version="0.0.5",
+=======
+    version="0.1.0",
+>>>>>>> release/0.1.0
     py_modules=['slackpy'],
     package_dir={'': 'slackpy'},
     install_requires=open('requirements.txt').read().splitlines(),

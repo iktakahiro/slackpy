@@ -1,28 +1,34 @@
 # slackpy
 
-slackpy is [Slack](https://slack.com) client library for specific logging.
+slackpy is [Slack][] client library for specific logging.
 
 ## Install
 
-```python
+```sh
 pip install slackpy
 ```
 
 ## Dependencies
 
-- requests
+-   requests 2.3.4
 
 ## Sample Code
 
 ```python
 import slackpy
 
+<<<<<<< HEAD
 AUTH_TOKEN = 'your_api_token'
 CHANNEL = '#your_channel'
+=======
+SUB_DOMAIN = 'your_sub_domain' # if your domain is test.slack.com, input 'test'.
+AUTH_TOKEN = 'your_web_hook_token'
+CHANNEL = '#general'
+>>>>>>> release/0.1.0
 USER_NAME = 'Logger'
 
 # Create a new instance.
-logging = slackpy.SlackLogger(AUTH_TOKEN, CHANNEL, USER_NAME)
+logging = slackpy.SlackLogger(SUB_DOMAIN, AUTH_TOKEN, CHANNEL, USER_NAME)
 
 # LogLevel: INFO
 logging.info(message='INFO Message')
@@ -36,26 +42,37 @@ logging.error(message='ERROR Message')
 
 ### Correspondence table
 
+<<<<<<< HEAD
 Method | LogLevel | Color
 :----: | :------: | :----:
 info() | INFO (1) | good (green)
 warn() | WARNING (2) | warning (orange)
 error() | ERROR (3) | danger (red)
+=======
+  Method     LogLevel       Notify    Color
+  ---------- -------------- --------- ---------
+  info()     INFO (1)       False     green
+  warn()     WARNING (2)    True      yellow
+  error()    ERROR (3)      True      red
+>>>>>>> release/0.1.0
 
 ## Command line
 
 ```sh
-export SLACK_TOKEN=your_api_token
+export SLACK_SUB_DOMAIN=your_sub_domain # if your domain is test.slack.com, input 'test'.
+export SLACK_WEB_HOOK_TOKEN=your_web_hook_token
 
 # LogLevel: INFO
-slackpy -c 'your_channel' -m 'INFO Message' -l 1
+slackpy -c '#your_channel' -m 'INFO Message' -l 1
 
 # LogLevel: WARN
-slackpy -c 'your_channel' -m 'WARN Message' -l 2
+slackpy -c '#your_channel' -m 'WARN Message' -l 2
 
 # LogLevel: ERROR
-slackpy -c 'your_channel' -m 'ERROR Message' -l 3
+slackpy -c '#your_channel' -m 'ERROR Message' -l 3
 
 # LogLevel: INFO (with Message Title)
-slackpy -c 'your_channel' -t 'Message Title' -m 'INFO Message' -l 1
+slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 1
 ```
+
+  [Slack]: https://slack.com
