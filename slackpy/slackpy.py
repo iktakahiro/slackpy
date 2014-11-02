@@ -10,10 +10,9 @@ from argparse import ArgumentParser
 
 
 class SlackLogger:
-    def __init__(self, auth_token, channel, username):
+    def __init__(self, sub_domain, auth_token, channel, username):
 
-        self.base_uri = 'https://slack.com/api/chat.postMessage'
-        self.auth_token = auth_token
+        self.base_uri = 'https://{0}.slack.com/services/hooks/incoming-webhook?token={1}'.format(sub_domain, auth_token)
         self.channel = channel
         self.username = username
 
@@ -33,23 +32,21 @@ class SlackLogger:
         __fields = {
             "title": title,
             "text": message,
-            "color": color
+            "color": color,
+            "fallback": title,
         }
 
         __attachments = {
-            "fallback": title,
             "fields": __fields
         }
 
-        params = {
-            "token": self.auth_token,
+        payload = {
             "channel": self.channel,
             "username": self.username,
-            "parse": "full",
-            "attachments": json.dumps(__attachments)
+            "attachments": __attachments
         }
 
-        response = requests.post(self.base_uri, data=params)
+        response = requests.post(self.base_uri, data=json.dumps(payload))
 
         return response
 
@@ -71,21 +68,22 @@ class SlackLogger:
 
 def main():
     try:
-        auth_token = os.environ["SLACK_TOKEN"]
+        auth_token = os.environ["SLACK_WEB_HOOK_TOKEN"]
+        sub_domain = os.environ["SLACK_SUB_DOMAIN"]
 
     except KeyError:
-        print('ERROR: Please set the SLACK_TOKEN variable in your environment.')
+        print('ERROR: Please set the SLACK_WEB_HOOK_TOKEN AND SLACK_SUB_DOMAIN variable in your environment.')
 
     else:
         parser = ArgumentParser(description='slackpy command line tool')
         parser.add_argument('-c', '--channel', required=True, help='Channel')
-        parser.add_argument('-t', '--title', type=str, required=False, help='Title')
+        parser.add_argument('-t', '--title', type=str, required=False, help='Title', default='Slack Notification')
         parser.add_argument('-m', '--message', type=str, required=True, help='Message')
         parser.add_argument('-l', '--level', type=int, default=1, choices=[1, 2, 3])
 
         args = parser.parse_args()
 
-        client = SlackLogger(auth_token, args.channel, 'Logger')
+        client = SlackLogger(auth_token, sub_domain, args.channel, 'Logger')
 
         if args.level == 1:
             response = client.info(args.title, args.message)
