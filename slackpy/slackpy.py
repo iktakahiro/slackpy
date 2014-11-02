@@ -10,13 +10,13 @@ from argparse import ArgumentParser
 
 
 class SlackLogger:
-    def __init__(self, sub_domain, auth_token, channel, username):
+    def __init__(self, sub_domain, auth_token, channel, username='Logger'):
 
         self.base_uri = 'https://{0}.slack.com/services/hooks/incoming-webhook?token={1}'.format(sub_domain, auth_token)
         self.channel = channel
         self.username = username
 
-    def __send_notification(self, title, message, color='good'):
+    def __send_notification(self, message, title='Slack Notification', color='good'):
         """Send a message to a channel.
         Args:
             title: The message title.
@@ -79,11 +79,12 @@ def main():
         parser.add_argument('-c', '--channel', required=True, help='Channel')
         parser.add_argument('-t', '--title', type=str, required=False, help='Title', default='Slack Notification')
         parser.add_argument('-m', '--message', type=str, required=True, help='Message')
+        parser.add_argument('-n', '--name', type=str, required=False, help='Name of Postman', default='Logger')
         parser.add_argument('-l', '--level', type=int, default=1, choices=[1, 2, 3])
 
         args = parser.parse_args()
 
-        client = SlackLogger(sub_domain, auth_token, args.channel, 'Logger')
+        client = SlackLogger(sub_domain, auth_token, args.channel, args.name)
 
         if args.level == 1:
             response = client.info(args.title, args.message)
