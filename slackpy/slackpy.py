@@ -83,7 +83,7 @@ def main():
 
         args = parser.parse_args()
 
-        client = SlackLogger(auth_token, sub_domain, args.channel, 'Logger')
+        client = SlackLogger(sub_domain, auth_token, args.channel, 'Logger')
 
         if args.level == 1:
             response = client.info(args.title, args.message)
