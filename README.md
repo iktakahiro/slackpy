@@ -10,21 +10,19 @@ pip install slackpy
 
 ## Dependencies
 
--   requests 2.3.4
+-   requests 2.3
 
 ## Sample Code
 
 ```python
 import slackpy
 
-SUB_DOMAIN = 'your_sub_domain' # if your domain is test.slack.com, input 'test'.
-AUTH_TOKEN = 'your_web_hook_token'
+INCOMING_WEB_HOOK = 'your_web_hook_url'
 CHANNEL = '#general'
->>>>>>> release/0.1.0
 USER_NAME = 'Logger'
 
 # Create a new instance.
-logging = slackpy.SlackLogger(SUB_DOMAIN, AUTH_TOKEN, CHANNEL, USER_NAME)
+logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
 
 # LogLevel: INFO
 logging.info(message='INFO Message')
@@ -47,8 +45,7 @@ error() | ERROR (3) | danger (red)
 ## Command line
 
 ```sh
-export SLACK_SUB_DOMAIN=your_sub_domain # if your domain is test.slack.com, input 'test'.
-export SLACK_WEB_HOOK_TOKEN=your_web_hook_token
+INCOMING_WEB_HOOK='your_web_hook_url'
 
 # LogLevel: INFO
 slackpy -c '#your_channel' -m 'INFO Message' -l 1
