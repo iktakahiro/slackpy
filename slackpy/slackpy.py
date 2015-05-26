@@ -88,11 +88,14 @@ def main():
         if args.level == 1:
             response = client.info(args.message, args.title)
 
-        if args.level == 2:
+        elif args.level == 2:
             response = client.warn(args.message, args.title)
 
-        if args.level == 3:
+        elif args.level == 3:
             response = client.error(args.message, args.title)
+
+        else:
+            raise Exception("'Level' must be selected from among 1 to 3")
 
         if response.status_code == 200:
             print(True)
