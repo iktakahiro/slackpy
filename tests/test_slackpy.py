@@ -11,9 +11,9 @@ class TestSlackLogger:
 
     def test_construct_payload(self, logger):
 
-        expected = logger._SlackLogger__construct_payload('Test Message', 'Test Title', 'Color Name')
+        actual = logger._SlackLogger__construct_payload('Test Message', 'Test Title', 'Color Name')
 
-        actual = {
+        expected = {
             "channel": "#dummy_channel",
             "username": "Test User",
             "attachments":
