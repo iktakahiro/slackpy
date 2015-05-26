@@ -16,19 +16,8 @@ class SlackLogger:
         self.channel = channel
         self.username = username
 
-    def __send_notification(self, message, title, color='good'):
-        """Send a message to a channel.
-        Args:
-            title: The message title.
-            message: The message body.
-            color: Can either be one of 'good', 'warning', 'danger', or any hex color code
+    def __construct_payload(self, message, title, color):
 
-        Returns:
-            api_response:
-
-        Raises:
-            TODO:
-        """
         __fields = {
             "title": title,
             "text": message,
@@ -45,6 +34,23 @@ class SlackLogger:
             "username": self.username,
             "attachments": __attachments
         }
+
+        return payload
+
+    def __send_notification(self, message, title, color='good'):
+        """Send a message to a channel.
+        Args:
+            title: The message title.
+            message: The message body.
+            color: Can either be one of 'good', 'warning', 'danger', or any hex color code
+
+        Returns:
+            api_response:
+
+        Raises:
+            TODO:
+        """
+        payload = self.__construct_payload(message, title, color)
 
         response = requests.post(self.web_hook_url, data=json.dumps(payload))
 
