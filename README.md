@@ -10,7 +10,7 @@ pip install slackpy
 
 ## Dependencies
 
--   requests 2.3
+-   requests 2.7
 
 ## Sample Code
 
