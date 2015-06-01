@@ -6,6 +6,7 @@ __author__ = 'Takahiro Ikeuchi'
 import os
 import requests
 import json
+import traceback
 from argparse import ArgumentParser
 
 
@@ -15,6 +16,12 @@ class SlackLogger:
         self.web_hook_url = web_hook_url
         self.channel = channel
         self.username = username
+
+        if channel.startswith('#') or channel.startswith('@'):
+            pass
+
+        else:
+            raise ValueError('channel must be started with "#" or "@".')
 
     def __construct_payload(self, message, title, color):
 
@@ -52,9 +59,18 @@ class SlackLogger:
         """
         payload = self.__construct_payload(message, title, color)
 
-        response = requests.post(self.web_hook_url, data=json.dumps(payload))
+        try:
+            response = requests.post(self.web_hook_url, data=json.dumps(payload))
 
-        return response
+        except Exception:
+            raise Exception(traceback.format_exc())
+
+        else:
+            if response.status_code == 200:
+                return response
+
+            else:
+                raise Exception(response.content.decode())
 
     def info(self, message, title='Slack Notification'):
 
