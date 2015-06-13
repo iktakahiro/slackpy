@@ -56,7 +56,7 @@ Command line
 
 .. code:: sh
 
-    INCOMING_WEB_HOOK='your_web_hook_url'
+    export INCOMING_WEB_HOOK='your_web_hook_url'
 
     # LogLevel: INFO
     slackpy -c '#your_channel' -m 'INFO Message' -l 1

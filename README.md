@@ -45,7 +45,7 @@ error() | ERROR (3) | danger (red)
 ## Command line
 
 ```sh
-INCOMING_WEB_HOOK='your_web_hook_url'
+export INCOMING_WEB_HOOK='your_web_hook_url'
 
 # LogLevel: INFO
 slackpy -c '#your_channel' -m 'INFO Message' -l 1
