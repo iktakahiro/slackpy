@@ -72,18 +72,19 @@ class SlackLogger:
             else:
                 raise Exception(response.content.decode())
 
-    def info(self, message, title='Slack Notification'):
+    def debug(self, message, title='Slack Notification'):
+        title = 'DEBUG : {0}'.format(title)
+        return self.__send_notification(message=message, title=title, color='#03A9F4')
 
+    def info(self, message, title='Slack Notification'):
         title = 'INFO : {0}'.format(title)
         return self.__send_notification(message=message, title=title, color='good')
 
     def warn(self, message, title='Slack Notification'):
-
         title = 'WARN : {0}'.format(title)
         return self.__send_notification(message=message, title=title, color='warning')
 
     def error(self, message, title='Slack Notification'):
-
         title = 'ERROR : {0}'.format(title)
         return self.__send_notification(message=message, title=title, color='danger')
 
@@ -103,14 +104,17 @@ def main():
         parser.add_argument('-n', '--name', type=str, required=False, help='Name of Postman', default='Logger')
 
         # The purpose of backward compatibility, old args (1, 2, 3) are being retained.
-        # INFO == 20, # WARNING == 30, ERROR == 40
-        parser.add_argument('-l', '--level', type=int, default=20, choices=[20, 30, 40, 1, 2, 3])
+        # DEBUG == 10, INFO == 20, # WARNING == 30, ERROR == 40
+        parser.add_argument('-l', '--level', type=int, default=20, choices=[10, 20, 30, 40, 1, 2, 3])
 
         args = parser.parse_args()
 
         client = SlackLogger(web_hook_url, args.channel, args.name)
 
-        if args.level == 20 or args.level == 1:
+        if args.level == 10:
+            response = client.debug(args.message, args.title)
+
+        elif args.level == 20 or args.level == 1:
             response = client.info(args.message, args.title)
 
         elif args.level == 30 or args.level == 2:
