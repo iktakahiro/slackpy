@@ -41,15 +41,15 @@ Sample Code
 Correspondence table
 ~~~~~~~~~~~~~~~~~~~~
 
-+-----------+---------------+--------------------+
-| Method    | LogLevel      | Color              |
-+===========+===============+====================+
-| info()    | INFO (20)     | good (green)       |
-+-----------+---------------+--------------------+
-| warn()    | WARNING (30)  | warning (orange)   |
-+-----------+---------------+--------------------+
-| error()   | ERROR (40)    | danger (red)       |
-+-----------+---------------+--------------------+
++-----------+---------------+----------------------+
+| Method    | LogLevel      | Color                |
++===========+===============+======================+
+| info()    | INFO (20)     | #03A9F4 (Light Blue) |
++-----------+---------------+----------------------+
+| warn()    | WARNING (30)  | warning (orange)     |
++-----------+---------------+----------------------+
+| error()   | ERROR (40)    | danger (red)         |
++-----------+---------------+----------------------+
 
 Command line
 ------------
@@ -68,7 +68,7 @@ Command line
     slackpy -c '#your_channel' -m 'ERROR Message' -l 40
 
     # LogLevel: INFO (with Message Title)
-    slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 1
+    slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 20
 
 .. _Slack: https://slack.com
 
