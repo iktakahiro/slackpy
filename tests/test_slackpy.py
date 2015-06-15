@@ -15,9 +15,9 @@ class TestSlackLogger:
         with pytest.raises(ValueError):
             SlackLogger('http://dummy_url', 'dummy_channel', 'Test User')
 
-    def test_construct_payload(self, logger):
+    def test_build_payload(self, logger):
 
-        actual = logger._SlackLogger__construct_payload('Test Message', 'Test Title', 'Color Name')
+        actual = logger._SlackLogger__build_payload('Test Message', 'Test Title', 'Color Name')
 
         expected = {
             "channel": "#dummy_channel",

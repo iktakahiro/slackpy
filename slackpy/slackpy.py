@@ -23,7 +23,7 @@ class SlackLogger:
         else:
             raise ValueError('channel must be started with "#" or "@".')
 
-    def __construct_payload(self, message, title, color):
+    def __build_payload(self, message, title, color):
 
         __fields = {
             "title": title,
@@ -57,7 +57,7 @@ class SlackLogger:
         Raises:
             TODO:
         """
-        payload = self.__construct_payload(message, title, color)
+        payload = self.__build_payload(message, title, color)
 
         try:
             response = requests.post(self.web_hook_url, data=json.dumps(payload))
