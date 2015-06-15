@@ -38,9 +38,9 @@ logging.error(message='ERROR Message')
 
 Method | LogLevel | Color
 :----: | :------: | :----:
-info() | INFO (1) | good (green)
-warn() | WARNING (2) | warning (orange)
-error() | ERROR (3) | danger (red)
+info() | INFO (20) | good (green)
+warn() | WARNING (30) | warning (orange)
+error() | ERROR (40) | danger (red)
 
 ## Command line
 
@@ -48,13 +48,13 @@ error() | ERROR (3) | danger (red)
 export INCOMING_WEB_HOOK='your_web_hook_url'
 
 # LogLevel: INFO
-slackpy -c '#your_channel' -m 'INFO Message' -l 1
+slackpy -c '#your_channel' -m 'INFO Message' -l 20
 
 # LogLevel: WARN
-slackpy -c '#your_channel' -m 'WARN Message' -l 2
+slackpy -c '#your_channel' -m 'WARN Message' -l 30
 
 # LogLevel: ERROR
-slackpy -c '#your_channel' -m 'ERROR Message' -l 3
+slackpy -c '#your_channel' -m 'ERROR Message' -l 40
 
 # LogLevel: INFO (with Message Title)
 slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 1

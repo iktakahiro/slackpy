@@ -23,7 +23,7 @@ class SlackLogger:
         else:
             raise ValueError('channel must be started with "#" or "@".')
 
-    def __construct_payload(self, message, title, color):
+    def __build_payload(self, message, title, color):
 
         __fields = {
             "title": title,
@@ -57,7 +57,7 @@ class SlackLogger:
         Raises:
             TODO:
         """
-        payload = self.__construct_payload(message, title, color)
+        payload = self.__build_payload(message, title, color)
 
         try:
             response = requests.post(self.web_hook_url, data=json.dumps(payload))
@@ -101,19 +101,22 @@ def main():
         parser.add_argument('-m', '--message', type=str, required=True, help='Message')
         parser.add_argument('-t', '--title', type=str, required=False, help='Title', default='Slack Notification')
         parser.add_argument('-n', '--name', type=str, required=False, help='Name of Postman', default='Logger')
-        parser.add_argument('-l', '--level', type=int, default=1, choices=[1, 2, 3])
+
+        # The purpose of backward compatibility, old args (1, 2, 3) are being retained.
+        # INFO == 20, # WARNING == 30, ERROR == 40
+        parser.add_argument('-l', '--level', type=int, default=20, choices=[20, 30, 40, 1, 2, 3])
 
         args = parser.parse_args()
 
         client = SlackLogger(web_hook_url, args.channel, args.name)
 
-        if args.level == 1:
+        if args.level == 20 or args.level == 1:
             response = client.info(args.message, args.title)
 
-        elif args.level == 2:
+        elif args.level == 30 or args.level == 2:
             response = client.warn(args.message, args.title)
 
-        elif args.level == 3:
+        elif args.level == 40 or args.level == 3:
             response = client.error(args.message, args.title)
 
         else:
