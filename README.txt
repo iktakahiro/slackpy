@@ -44,7 +44,9 @@ Correspondence table
 +-----------+---------------+----------------------+
 | Method    | LogLevel      | Color                |
 +===========+===============+======================+
-| info()    | INFO (20)     | #03A9F4 (Light Blue) |
+| info()    | DEBUG (10)    | #03A9F4 (Light Blue) |
++-----------+---------------+----------------------+
+| info()    | INFO (20)     | good (green)         |
 +-----------+---------------+----------------------+
 | warn()    | WARNING (30)  | warning (orange)     |
 +-----------+---------------+----------------------+
@@ -56,7 +58,10 @@ Command line
 
 .. code:: sh
 
-    INCOMING_WEB_HOOK='your_web_hook_url'
+    export SLACK_INCOMING_WEB_HOOK='your_web_hook_url'
+
+    # LogLevel: DEBUG
+    slackpy -c '#your_channel' -m 'DEBUG Message' -l 10
 
     # LogLevel: INFO
     slackpy -c '#your_channel' -m 'INFO Message' -l 20

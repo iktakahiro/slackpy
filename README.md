@@ -49,10 +49,10 @@ error() | ERROR (40) | danger (red)
 ## Command line
 
 ```sh
-INCOMING_WEB_HOOK='your_web_hook_url'
+export SLACK_INCOMING_WEB_HOOK='your_web_hook_url'
 
 # LogLevel: DEBUG
-slackpy -c '#your_channel' -m 'INFO Message' -l 10
+slackpy -c '#your_channel' -m 'DEBUG Message' -l 10
 
 # LogLevel: INFO
 slackpy -c '#your_channel' -m 'INFO Message' -l 20
