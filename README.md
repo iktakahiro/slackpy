@@ -24,6 +24,9 @@ USER_NAME = 'Logger'
 # Create a new instance.
 logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
 
+## Minimum Parameter
+## logging = slackpy.SlackLogger(INCOMING_WEB_HOOK)
+
 # LogLevel: DEBUG
 logging.info(message='INFO Message')
 
@@ -62,6 +65,9 @@ slackpy -c '#your_channel' -m 'WARN Message' -l 30
 
 # LogLevel: ERROR
 slackpy -c '#your_channel' -m 'ERROR Message' -l 40
+
+# LogLevel: DEBUG (without specifying #channel)
+slackpy -m 'DEBUG Message' -l 10
 
 # LogLevel: INFO (with Message Title)
 slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 20
