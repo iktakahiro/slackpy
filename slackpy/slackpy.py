@@ -14,14 +14,13 @@ class SlackLogger:
     def __init__(self, web_hook_url, channel=None, username='Logger'):
 
         self.web_hook_url = web_hook_url
-        self.channel = channel
         self.username = username
 
         if channel is None:
-            pass
+            self.channel = None
 
         elif channel.startswith('#') or channel.startswith('@'):
-            pass
+            self.channel = channel
 
         else:
             raise ValueError('channel must be started with "#" or "@".')
