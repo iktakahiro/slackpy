@@ -11,13 +11,16 @@ from argparse import ArgumentParser
 
 
 class SlackLogger:
-    def __init__(self, web_hook_url, channel, username='Logger'):
+    def __init__(self, web_hook_url, channel=None, username='Logger'):
 
         self.web_hook_url = web_hook_url
         self.channel = channel
         self.username = username
 
-        if channel.startswith('#') or channel.startswith('@'):
+        if channel is None:
+            pass
+
+        elif channel.startswith('#') or channel.startswith('@'):
             pass
 
         else:
@@ -98,8 +101,8 @@ def main():
 
     else:
         parser = ArgumentParser(description='slackpy command line tool')
-        parser.add_argument('-c', '--channel', required=True, help='Channel')
         parser.add_argument('-m', '--message', type=str, required=True, help='Message')
+        parser.add_argument('-c', '--channel', required=False, help='Channel', default=None)
         parser.add_argument('-t', '--title', type=str, required=False, help='Title', default='Slack Notification')
         parser.add_argument('-n', '--name', type=str, required=False, help='Name of Postman', default='Logger')
 
