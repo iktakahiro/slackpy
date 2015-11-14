@@ -162,6 +162,12 @@ def main():
                             required=False,
                             help='Name of Postman',
                             default='Logger')
+        parser.add_argument('-f',
+                            '--fallback',
+                            type=str,
+                            required=False,
+                            help='A plain-text summary of the attachment',
+                            default='')
 
         # The purpose of backward compatibility, old args (1, 2, 3)
         # are being retained.
@@ -177,16 +183,16 @@ def main():
         client = SlackLogger(web_hook_url, args.channel, args.name)
 
         if args.level == 10:
-            response = client.debug(args.message, args.title)
+            response = client.debug(args.message, args.title, args.fallback)
 
         elif args.level == 20 or args.level == 1:
-            response = client.info(args.message, args.title)
+            response = client.info(args.message, args.title, args.fallback)
 
         elif args.level == 30 or args.level == 2:
-            response = client.warn(args.message, args.title)
+            response = client.warn(args.message, args.title, args.fallback)
 
         elif args.level == 40 or args.level == 3:
-            response = client.error(args.message, args.title)
+            response = client.error(args.message, args.title, args.fallback)
 
         else:
             raise Exception("'Level' must be selected from among 1 to 3")
