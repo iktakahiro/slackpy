@@ -41,6 +41,9 @@ Sample Code
     # LogLevel: ERROR
     logging.error(message='ERROR Message')
 
+    # LogLevel: CUSTOM
+    logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good', fields=[{"title": "CUSTOM", "value": "test", "short": "true"}])
+
 Correspondence table
 ~~~~~~~~~~~~~~~~~~~~
 
