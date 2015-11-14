@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/iktakahiro/slackpy.svg)](https://travis-ci.org/iktakahiro/slackpy)
+
 # slackpy
 
 slackpy is [Slack][] client library for specific logging.
@@ -27,17 +29,22 @@ logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
 ## Minimum Parameter
 ## logging = slackpy.SlackLogger(INCOMING_WEB_HOOK)
 
+LogLevel's only required parameter is "message", all others are optional
+
 # LogLevel: DEBUG
-logging.info(message='INFO Message')
+logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
 
 # LogLevel: INFO
-logging.info(message='INFO Message')
+logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
 
 # LogLevel: WARN
-logging.warn(message='WARN Message')
+logging.warn(message='WARN Message', title='INFO Title', fallback='', fields='')
 
 # LogLevel: ERROR
-logging.error(message='ERROR Message')
+logging.error(message='ERROR Message', title='INFO Title', fallback='', fields='')
+
+# LogLevel: CUSTOM
+logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good', fields=[{"title": "CUSTOM", "value": "test", "short": "true"}])
 ```
 
 ### Correspondence table
@@ -70,7 +77,7 @@ slackpy -c '#your_channel' -m 'ERROR Message' -l 40
 slackpy -m 'DEBUG Message' -l 10
 
 # LogLevel: INFO (with Message Title)
-slackpy -c '#your_channel' -t 'Message Title' -m 'INFO Message' -l 20
+slackpy -c '#your_channel' -t 'DEBUG: Message Title' -m 'INFO Message' -l 20
 ```
 
   [Slack]: https://slack.com
