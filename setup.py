@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 __author__ = 'Takahiro Ikeuchi'
 
 
 setup(
     name="slackpy",
-    version="1.1.4",
+    version="1.2.0",
     py_modules=['slackpy'],
     package_dir={'': 'slackpy'},
     install_requires=open('requirements.txt').read().splitlines(),
@@ -22,6 +22,7 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Topic :: System :: Logging",
         "Topic :: Communications :: Chat"
     ],
@@ -31,4 +32,3 @@ setup(
         ],
     },
 )
-
