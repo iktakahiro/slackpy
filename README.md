@@ -12,7 +12,7 @@ pip install slackpy
 
 ## Dependencies
 
--   requests 2.7
+-   requests 2.8
 
 ## Sample Code
 
@@ -26,10 +26,13 @@ USER_NAME = 'Logger'
 # Create a new instance.
 logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
 
+# You can set log level. Default level is INFO.
+logging.set_log_level(slackpy.LogLv.DEBUG) # Or logging.set_log_level(10)
+
 ## Minimum Parameter
 ## logging = slackpy.SlackLogger(INCOMING_WEB_HOOK)
 
-LogLevel's only required parameter is "message", all others are optional
+LogLevel's only required parameter is "message", all others are optional.
 
 # LogLevel: DEBUG
 logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
@@ -44,7 +47,9 @@ logging.warn(message='WARN Message', title='INFO Title', fallback='', fields='')
 logging.error(message='ERROR Message', title='INFO Title', fallback='', fields='')
 
 # LogLevel: CUSTOM
-logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good', fields=[{"title": "CUSTOM", "value": "test", "short": "true"}])
+logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good',
+                fields=[{"title": "CUSTOM", "value": "test", "short": "true"}],
+                log_level=40)
 ```
 
 ### Correspondence table
@@ -55,6 +60,8 @@ debug() | DEBUG (10) | #03A9F4 (Light Blue)
 info() | INFO (20) | good (green)
 warn() | WARNING (30) | warning (orange)
 error() | ERROR (40) | danger (red)
+
+LogLevel based on logging standard library (https://docs.python.org/3.4/library/logging.html#levels)
 
 ## Command line
 
