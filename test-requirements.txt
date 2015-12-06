@@ -1,2 +1,2 @@
-requests==2.8
-pytest==2.8
+requests<3,>=2.8.0
+pytest<3,>=2.8.0
