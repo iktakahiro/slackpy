@@ -27,7 +27,7 @@ class SlackLogger:
 
         self.web_hook_url = web_hook_url
         self.username = username
-        self.log_level = 10
+        self.log_level = LogLv.INFO
 
         if channel is None:
             self.channel = None
@@ -210,6 +210,9 @@ def main():
         args = parser.parse_args()
 
         client = SlackLogger(web_hook_url, args.channel, args.name)
+
+        # Command Line mode can use only DEBUG level.
+        client.set_log_level(LogLv.DEBUG)
 
         if args.level == LogLv.DEBUG:
             response = client.debug(args.message, args.title, args.fallback)

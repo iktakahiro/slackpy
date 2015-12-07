@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from slackpy.slackpy import SlackLogger
+from slackpy.slackpy import SlackLogger, LOG_LEVELS, LogLv
 
 __author__ = 'takahiro_ikeuchi'
 
 
 class TestSlackLogger:
+
     def test_channel_value_error(self):
         with pytest.raises(ValueError):
             SlackLogger('http://dummy_url', 'dummy_channel', 'Test User')
@@ -103,6 +104,13 @@ class TestSlackLogger:
 
         assert expected == actual
 
+    def test_default_log_level(self):
+        logger = SlackLogger('http://dummy_url')
+        assert logger.log_level == 20
+
+    def test_values_in_LOG_LEVELS(self):
+        assert LOG_LEVELS == [10, 20, 30, 40]
+
     def test_to_set_valid_value_log_level(self):
         logger = SlackLogger('http://dummy_url')
 
@@ -113,11 +121,26 @@ class TestSlackLogger:
     def test_to_set_invalid_value_log_level(self):
         logger = SlackLogger('http://dummy_url')
 
-        with pytest.raises(ValueError):
-            logger.set_log_level(99)
-
-        with pytest.raises(ValueError):
-            logger.set_log_level(0)
+        for lv in [0, 50, 99, 'INFO']:
+            with pytest.raises(ValueError):
+                logger.set_log_level(lv)
 
         with pytest.raises(TypeError):
             logger.set_log_level()
+
+    def test_log_level_threshold(self):
+        logger = SlackLogger('http://dummy_url')
+
+        actual = logger.debug('TEST')
+        assert actual is None
+
+        logger.set_log_level(LogLv.WARN)
+
+        actual = logger.info('TEST')
+        assert actual is None
+
+        logger.set_log_level(LogLv.ERROR)
+
+        actual = logger.warn('TEST')
+        assert actual is None
+
