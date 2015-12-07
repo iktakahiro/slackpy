@@ -5,15 +5,15 @@ from setuptools import setup
 
 __author__ = 'Takahiro Ikeuchi'
 
-
 setup(
     name="slackpy",
     version="1.2.0",
-    py_modules=['slackpy'],
+    py_modules=['slackpy', 'commandline'],
     package_dir={'': 'slackpy'},
     install_requires=open('requirements.txt').read().splitlines(),
+    tests_require=open('test-requirements.txt').read().splitlines(),
     description="Simple Slack client library",
-    long_description=open('README.txt').read(),
+    long_description=open('README.rst').read(),
     author='Takahiro Ikeuchi',
     author_email='takahiro.ikeuchi@gmail.com',
     url='https://github.com/iktakahiro/slackpy',
@@ -28,7 +28,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "slackpy=slackpy:main",
+            "slackpy=commandline:main",
         ],
     },
 )
