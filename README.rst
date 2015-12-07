@@ -31,16 +31,19 @@ Sample Code
     # Create a new instance.
     logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
 
-    # You can set log level. Default level is INFO.
+    # You can set a log level. Default level is INFO.
     logging.set_log_level(slackpy.LogLv.DEBUG) # Or logging.set_log_level(10)
 
     ## Minimum Parameter
     ## logging = slackpy.SlackLogger(INCOMING_WEB_HOOK)
 
-    LogLevel's only required parameter is "message", all others are optional.
+    # Simple Usage
+    logging.info('INFO Message')
+
+    # LogLevel's only required parameter is "message", all others are optional.
 
     # LogLevel: DEBUG
-    logging.info(message='DEBUG Message', title='INFO Title', fallback='', fields='')
+    logging.debug(message='DEBUG Message', title='INFO Title', fallback='', fields='')
 
     # LogLevel: INFO
     logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')

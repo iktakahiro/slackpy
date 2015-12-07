@@ -7,11 +7,10 @@ __author__ = 'Takahiro Ikeuchi'
 
 setup(
     name="slackpy",
-    version="1.3.0",
+    version="1.3.1",
     py_modules=['slackpy', 'commandline'],
     package_dir={'': 'slackpy'},
     install_requires=open('requirements.txt').read().splitlines(),
-    tests_require=open('test-requirements.txt').read().splitlines(),
     description="Simple Slack client library",
     long_description=open('README.rst').read(),
     author='Takahiro Ikeuchi',
