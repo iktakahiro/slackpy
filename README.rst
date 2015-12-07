@@ -40,7 +40,7 @@ Sample Code
     LogLevel's only required parameter is "message", all others are optional.
 
     # LogLevel: DEBUG
-    logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
+    logging.info(message='DEBUG Message', title='INFO Title', fallback='', fields='')
 
     # LogLevel: INFO
     logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
@@ -98,6 +98,11 @@ Command line
 
     # LogLevel: INFO (with Message Title)
     slackpy -c '#your_channel' -t 'DEBUG: Message Title' -m 'INFO Message' -l 20
+
+About Versioning
+----------------
+
+slackpy is following `Semantic Versioning 2.0.0 <http://semver.org/spec/v2.0.0.html>`_.
 
 .. _Slack: https://slack.com
 
