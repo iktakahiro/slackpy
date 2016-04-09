@@ -4,7 +4,7 @@
 import pytest
 from slackpy.slackpy import SlackLogger, LOG_LEVELS, LogLv
 
-__author__ = 'takahiro_ikeuchi'
+__author__ = 'Takahiro Ikeuchi'
 
 
 class TestSlackLogger:
