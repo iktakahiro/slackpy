@@ -1,1 +1,1 @@
-__author__ = 'takahiro_ikeuchi'
+__author__ = 'Takahiro Ikeuchi'

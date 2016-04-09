@@ -1,1 +1,3 @@
-requests<3,>=2.8.0
+requests
+enum34 ; python_version < '3.4'
+

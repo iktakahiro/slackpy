@@ -1,9 +1,23 @@
-|Build Status|
+.. image:: https://img.shields.io/pypi/v/slackpy.svg
+    :target: https://pypi.python.org/pypi/slackpy
+
+.. image:: https://img.shields.io/pypi/dm/slackpy.svg
+    :target: https://pypi.python.org/pypi/slackpy
+
+.. image:: https://travis-ci.org/iktakahiro/slackpy.svg?branch=master
+    :target: https://travis-ci.org/iktakahiro/slackpy
 
 slackpy
 =======
 
-slackpy is `Slack`_ client library for specific logging.
+slackpy is simple and useful `Slack`_ client library for logging.
+
+Use Case
+--------
+
+- Web Application
+- NEW! `AWS Lambda`_
+- Bash Script
 
 Install
 -------
@@ -15,7 +29,7 @@ Install
 Dependencies
 ------------
 
--  requests<3,>=2.8.0
+-  requests
 
 Sample Code
 -----------
@@ -102,6 +116,19 @@ Command line
     # LogLevel: INFO (with Message Title)
     slackpy -c '#your_channel' -t 'DEBUG: Message Title' -m 'INFO Message' -l 20
 
+For AWS Lamdba
+--------------
+
+.. code:: sh
+
+   # First, pip install to top of project directory.
+   pip install slackpy -t .
+
+   # Second, Archive your source code and dependency packages.
+   zip -r src.zip lambda_function.py slackpy.py enum requests
+
+   # Finally, Upload your src.zip
+
 About Versioning
 ----------------
 
@@ -109,5 +136,5 @@ slackpy is following `Semantic Versioning 2.0.0 <http://semver.org/spec/v2.0.0.h
 
 .. _Slack: https://slack.com
 
-.. |Build Status| image:: https://travis-ci.org/iktakahiro/slackpy.svg
-   :target: https://travis-ci.org/iktakahiro/slackpy
+.. _AWS Lambda: https://aws.amazon.com/lambda/
+
