@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import requests
+from __future__ import print_function
 import json
 import traceback
+import requests
 from enum import IntEnum, unique
 
 __author__ = 'Takahiro Ikeuchi'
