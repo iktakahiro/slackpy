@@ -29,7 +29,7 @@ Install
 Dependencies
 ------------
 
--  requests<3,>=2.8.0
+-  requests
 
 Sample Code
 -----------
@@ -138,5 +138,3 @@ slackpy is following `Semantic Versioning 2.0.0 <http://semver.org/spec/v2.0.0.h
 
 .. _AWS Lambda: https://aws.amazon.com/lambda/
 
-.. |Build Status| image:: https://travis-ci.org/iktakahiro/slackpy.svg
-   :target: https://travis-ci.org/iktakahiro/slackpy
