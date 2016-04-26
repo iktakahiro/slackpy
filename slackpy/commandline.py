@@ -9,54 +9,54 @@ __author__ = 'Takahiro Ikeuchi'
 
 
 def main():
+    parser = ArgumentParser(description='slackpy command line tool')
+    parser.add_argument('-m',
+                        '--message',
+                        type=str,
+                        required=True,
+                        help='Message')
+    parser.add_argument('-c',
+                        '--channel',
+                        required=False,
+                        help='Channel',
+                        default=None)
+    parser.add_argument('-t',
+                        '--title',
+                        type=str,
+                        required=False,
+                        help='Title',
+                        default='Slack Notification')
+    parser.add_argument('-n',
+                        '--name',
+                        type=str,
+                        required=False,
+                        help='Name of Postman',
+                        default='Logger')
+    parser.add_argument('-f',
+                        '--fallback',
+                        type=str,
+                        required=False,
+                        help='A plain-text summary of the attachment',
+                        default='')
+
+    # The purpose of backward compatibility, old args (1, 2, 3)
+    # are being retained.
+    # DEBUG == 10, INFO == 20, # WARNING == 30, ERROR == 40
+    parser.add_argument('-l',
+                        '--level',
+                        type=int,
+                        default=20,
+                        choices=LOG_LEVELS.append([1, 2, 3]))
+
+    args = parser.parse_args()
+
     try:
         web_hook_url = os.environ["SLACK_INCOMING_WEB_HOOK"]
 
     except KeyError:
-        print('ERROR: Please set the SLACK_INCOMING_WEB_HOOK variable in ' +
-              ' your environment.')
-
+        print('ERROR: Please set a SLACK_INCOMING_WEB_HOOK variable in ' +
+              'your environment.')
     else:
-        parser = ArgumentParser(description='slackpy command line tool')
-        parser.add_argument('-m',
-                            '--message',
-                            type=str,
-                            required=True,
-                            help='Message')
-        parser.add_argument('-c',
-                            '--channel',
-                            required=False,
-                            help='Channel',
-                            default=None)
-        parser.add_argument('-t',
-                            '--title',
-                            type=str,
-                            required=False,
-                            help='Title',
-                            default='Slack Notification')
-        parser.add_argument('-n',
-                            '--name',
-                            type=str,
-                            required=False,
-                            help='Name of Postman',
-                            default='Logger')
-        parser.add_argument('-f',
-                            '--fallback',
-                            type=str,
-                            required=False,
-                            help='A plain-text summary of the attachment',
-                            default='')
-
-        # The purpose of backward compatibility, old args (1, 2, 3)
-        # are being retained.
-        # DEBUG == 10, INFO == 20, # WARNING == 30, ERROR == 40
-        parser.add_argument('-l',
-                            '--level',
-                            type=int,
-                            default=20,
-                            choices=LOG_LEVELS.append([1, 2, 3]))
-
-        args = parser.parse_args()
 
         client = SlackLogger(web_hook_url, args.channel, args.name)
 
