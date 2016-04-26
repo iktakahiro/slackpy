@@ -57,7 +57,7 @@ Sample Code
     # LogLevel's only required parameter is "message", all others are optional.
 
     # LogLevel: DEBUG
-    logging.debug(message='DEBUG Message', title='INFO Title', fallback='', fields='')
+    logging.debug(message='DEBUG Message', title='DEBUG Title', fallback='', fields='')
 
     # LogLevel: INFO
     logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
@@ -114,7 +114,7 @@ Command line
     slackpy -m 'DEBUG Message' -l 10
 
     # LogLevel: INFO (with Message Title)
-    slackpy -c '#your_channel' -t 'DEBUG: Message Title' -m 'INFO Message' -l 20
+    slackpy -c '#your_channel' -t 'INFO Message Title' -m 'INFO Message' -l 20
 
 For AWS Lamdba
 --------------
