@@ -63,10 +63,10 @@ Sample Code
     logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
 
     # LogLevel: WARN
-    logging.warn(message='WARN Message', title='INFO Title', fallback='', fields='')
+    logging.warn(message='WARN Message', title='WARN Title', fallback='', fields='')
 
     # LogLevel: ERROR
-    logging.error(message='ERROR Message', title='INFO Title', fallback='', fields='')
+    logging.error(message='ERROR Message', title='ERROR Title', fallback='', fields='')
 
     # LogLevel: CUSTOM
     logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good',
