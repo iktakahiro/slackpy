@@ -13,9 +13,8 @@ extras_requires = {
 
 setup(
     name="slackpy",
-    version="1.4.1",
-    py_modules=['slackpy', 'commandline'],
-    package_dir={'': 'slackpy'},
+    version="1.4.2",
+    packages=['slackpy'],
     install_requires=requires,
     extras_require=extras_requires,
     description="Simple and Useful Slack client library",
@@ -35,7 +34,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "slackpy=commandline:main",
+            "slackpy=slackpy.commandline:main",
         ],
     },
     tests_require=tests_requires
