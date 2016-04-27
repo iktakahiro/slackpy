@@ -13,7 +13,7 @@ extras_requires = {
 
 setup(
     name="slackpy",
-    version="1.4.4",
+    version="1.4.5",
     packages=['slackpy'],
     install_requires=requires,
     extras_require=extras_requires,
