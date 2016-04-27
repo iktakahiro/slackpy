@@ -14,29 +14,29 @@ def main():
                         '--message',
                         type=str,
                         required=True,
-                        help='Message')
+                        help='Text of the message to send.')
     parser.add_argument('-c',
                         '--channel',
                         required=False,
-                        help='Channel',
+                        help='Slack Channel. The channel must be started with # or @',
                         default=None)
     parser.add_argument('-t',
                         '--title',
                         type=str,
                         required=False,
-                        help='Title',
+                        help='Title of the message to send.',
                         default='Slack Notification')
     parser.add_argument('-n',
                         '--name',
                         type=str,
                         required=False,
-                        help='Name of Postman',
+                        help='Your bot\'s user name',
                         default='Logger')
     parser.add_argument('-f',
                         '--fallback',
                         type=str,
                         required=False,
-                        help='A plain-text summary of the attachment',
+                        help='Plain-text summary of the attachment',
                         default='')
 
     # The purpose of backward compatibility, old args (1, 2, 3)
