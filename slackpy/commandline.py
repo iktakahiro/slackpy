@@ -32,12 +32,6 @@ def main():
                         required=False,
                         help='Your bot\'s user name',
                         default='Logger')
-    parser.add_argument('-f',
-                        '--fallback',
-                        type=str,
-                        required=False,
-                        help='Plain-text summary of the attachment',
-                        default='')
 
     # The purpose of backward compatibility, old args (1, 2, 3)
     # are being retained.
@@ -64,19 +58,19 @@ def main():
         client.set_log_level(LogLv.DEBUG)
 
         if args.level == LogLv.DEBUG:
-            response = client.debug(args.message, args.title, args.fallback)
+            response = client.debug(args.message, args.title)
 
-        elif args.level == LogLv.INFO or args.level == 1:
-            response = client.info(args.message, args.title, args.fallback)
+        elif args.level == LogLv.INFO:
+            response = client.info(args.message, args.title)
 
-        elif args.level == LogLv.WARN or args.level == 2:
-            response = client.warn(args.message, args.title, args.fallback)
+        elif args.level == LogLv.WARN:
+            response = client.warn(args.message, args.title)
 
-        elif args.level == LogLv.ERROR or args.level == 3:
-            response = client.error(args.message, args.title, args.fallback)
+        elif args.level == LogLv.ERROR:
+            response = client.error(args.message, args.title)
 
         else:
-            raise Exception("'Level' must be selected from among 1 to 3")
+            raise Exception("'Level' must be selected from among 10 to 40")
 
         if response.status_code == 200:
             print(True)
