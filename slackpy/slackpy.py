@@ -96,7 +96,7 @@ class SlackLogger:
                 return response
 
             else:
-                raise Exception('Post to Slack failer')
+                raise Exception('POST falied.')
 
     def debug(self, message, title='Slack Notification', fallback='',
               fields=''):
