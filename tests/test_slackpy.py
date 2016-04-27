@@ -180,4 +180,4 @@ class TestSlackLogger:
 
         with pytest.raises(Exception) as exc_info:
             logger.error("Test Message", "Test Title")
-        assert 'nodename nor servname provided,' in str(exc_info.value)
+        assert 'Failed' in str(exc_info.value)
