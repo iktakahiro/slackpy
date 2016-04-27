@@ -70,7 +70,7 @@ Sample Code
 
     # LogLevel: CUSTOM
     logging.message(message='CUSTOM Message', title='CUSTOM Title', color='good',
-                    fields=[{"title": "CUSTOM", "value": "test", "short": "true"}],
+                    fields=[{"title": "CUSTOM", "value": "test", "short": True}],
                     log_level=40)
 
 Correspondence table
@@ -125,7 +125,7 @@ For AWS Lamdba
    pip install slackpy -t .
 
    # Second, Archive your source code and dependency packages.
-   zip -r src.zip lambda_function.py slackpy.py enum requests
+   zip -r src.zip lambda_function.py slackpy enum requests
 
    # Finally, Upload your src.zip
 

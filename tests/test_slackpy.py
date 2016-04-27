@@ -155,11 +155,11 @@ class TestSlackLogger:
         fields = [{
             "title": "Project",
             "value": "Test Project",
-            "short": "true"
+            "short": True
         }, {
             "title": "Environment",
             "value": "Test",
-            "short": "true"
+            "short": True
         }
         ]
 
