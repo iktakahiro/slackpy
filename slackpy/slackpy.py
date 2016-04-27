@@ -70,14 +70,13 @@ class SlackLogger:
             title: The message title.
             message: The message body.
             color: Can either be one of 'good', 'warning', 'danger',
-                   or any hex color code
-            fallback: What is shown to IRC/fallback clients
+                   or any hex color code.
 
         Returns:
-            api_response:
+            response: A Response of Slack API.
 
         Raises:
-            TODO:
+            Exception:
         """
         if log_level < self.log_level:
             return None
@@ -96,9 +95,9 @@ class SlackLogger:
                 return response
 
             else:
-                raise Exception('POST falied.')
+                raise Exception('POST failed.')
 
-    def debug(self, message, title='Slack Notification', fallback='',
+    def debug(self, message, title='Slack Notification',
               fields=''):
         return self.__send_notification(message=message,
                                         title=title,
@@ -106,16 +105,15 @@ class SlackLogger:
                                         fields=fields,
                                         log_level=LogLv.DEBUG)
 
-    def info(self, message, title='Slack Notification', fallback='',
+    def info(self, message, title='Slack Notification',
              fields=''):
         return self.__send_notification(message=message,
                                         title=title,
                                         color='good',
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=LogLv.INFO)
 
-    def warn(self, message, title='Slack Notification', fallback='',
+    def warn(self, message, title='Slack Notification',
              fields=''):
         return self.__send_notification(message=message,
                                         title=title,
@@ -123,7 +121,7 @@ class SlackLogger:
                                         fields=fields,
                                         log_level=LogLv.WARN)
 
-    def error(self, message, title='Slack Notification', fallback='',
+    def error(self, message, title='Slack Notification',
               fields=''):
         return self.__send_notification(message=message,
                                         title=title,
@@ -131,11 +129,10 @@ class SlackLogger:
                                         fields=fields,
                                         log_level=LogLv.ERROR)
 
-    def message(self, message, title='Slack Notification', fallback='',
+    def message(self, message, title='Slack Notification',
                 color='good', fields='', log_level=LogLv.ERROR):
         return self.__send_notification(message=message,
                                         title=title,
                                         color=color,
                                         fields=fields,
                                         log_level=log_level)
-
