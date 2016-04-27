@@ -3,4 +3,4 @@
 
 __author__ = 'Takahiro Ikeuchi'
 
-from .slackpy import SlackLogger
+from .slackpy import SlackLogger, LogLv
