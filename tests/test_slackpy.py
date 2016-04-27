@@ -8,7 +8,6 @@ __author__ = 'Takahiro Ikeuchi'
 
 
 class TestSlackLogger:
-
     def test_channel_value_error(self):
         with pytest.raises(ValueError):
             SlackLogger('http://dummy_url', 'dummy_channel', 'Test User')
@@ -18,21 +17,18 @@ class TestSlackLogger:
         actual = logger._SlackLogger__build_payload('Test Message',
                                                     'Test Title',
                                                     'Color Name',
-                                                    'Fallback Text',
                                                     '')
 
         expected = {
             "channel": "#dummy_channel",
             "username": "Test User",
-            "attachments":
-                {
-                    "fields": {
-                        "title": "Test Title",
-                        "text": "Test Message",
-                        "color": "Color Name",
-                        "fallback": "Fallback Text",
-                    }
-                }
+            "attachments": [
+                {'color': 'Color Name',
+                 'text': 'Test Message',
+                 "title": "Test Title",
+                 'mrkdwn_in': ['text', 'fields', 'title'],
+                 "fields": '',
+                 }]
         }
 
         assert expected == actual
@@ -42,21 +38,18 @@ class TestSlackLogger:
         actual = logger._SlackLogger__build_payload('Test Message',
                                                     'Test Title',
                                                     'Color Name',
-                                                    'Fallback Text',
                                                     '')
 
         expected = {
             "channel": None,
             "username": "Logger",
-            "attachments":
-                {
-                    "fields": {
-                        "title": "Test Title",
-                        "text": "Test Message",
-                        "color": "Color Name",
-                        "fallback": "Fallback Text",
-                    }
-                }
+            "attachments": [
+                {'color': 'Color Name',
+                 'text': 'Test Message',
+                 "title": "Test Title",
+                 'mrkdwn_in': ['text', 'fields', 'title'],
+                 "fields": '',
+                 }]
         }
 
         assert expected == actual
@@ -64,7 +57,7 @@ class TestSlackLogger:
     def test_build_payload_with_custom_fields(self):
         logger = SlackLogger('http://dummy_url', '#dummy_channel', 'Test User')
 
-        test_fields = []
+        test_fields = list()
         test_fields.append({
             "title": "Project",
             "value": "Test Project",
@@ -79,27 +72,28 @@ class TestSlackLogger:
         actual = logger._SlackLogger__build_payload('Test Message',
                                                     'Test Title',
                                                     'Color Name',
-                                                    'Fallback Text',
                                                     test_fields)
 
         expected = {
             "channel": "#dummy_channel",
             "username": "Test User",
-            "attachments":
-                [{
-                    "fallback": "Fallback Text",
-                    "color": "Color Name",
-                    "text": "Test Message",
-                    "fields": [{
-                        "title": "Project",
-                        "value": "Test Project",
-                        "short": "true"
-                    }, {
-                        "title": "Environment",
-                        "value": "Test",
-                        "short": "true"
-                    }]
-                }]
+            "attachments": [
+                {'color': 'Color Name',
+                 'text': 'Test Message',
+                 "title": "Test Title",
+                 'mrkdwn_in': ['text', 'fields', 'title'],
+                 "fields": [
+                     {
+                         "title": "Project",
+                         "value": "Test Project",
+                         "short": "true"
+                     }, {
+                         "title": "Environment",
+                         "value": "Test",
+                         "short": "true"
+                     }
+                 ],
+                 }]
         }
 
         assert expected == actual
@@ -108,7 +102,7 @@ class TestSlackLogger:
         logger = SlackLogger('http://dummy_url')
         assert logger.log_level == 20
 
-    def test_values_in_LOG_LEVELS(self):
+    def test_values_in_log_levels(self):
         assert LOG_LEVELS == [10, 20, 30, 40]
 
     def test_to_set_valid_value_log_level(self):
@@ -143,4 +137,3 @@ class TestSlackLogger:
 
         actual = logger.warn('TEST')
         assert actual is None
-
