@@ -1,9 +1,11 @@
+env:
+  global:
+    secure: iECe64CY8tqQrGNrsb6OnVrSgIpjQeqWDn3vlpFxEx6gAQ0qiivHfUJ8DU2gc/hqJgTo/KRPWkHpiR09LLSf/tYMbXx5PG4RDLzXFQoUBZLsfRqswUWKqFeKZnDTLR6zOlYzXo8bD+qFHxQBbWzm/ewReOYORDhm9fGRqFffW05vA0QkJhQPB1sID94k4yGjdtdmVpJDXyEckzHhHzBvWCI3ZuzU2zMbSVlPF7mONdm7gRUTCzAVo9cM/GEFLeM/QTBjJ5uv0OeFhRmXMhKR73zXNf/++YbjFY/WOmtnyGResjTRfRRaYE1OxeejwkLUg0edXE6r0IcU474GVKU8k1lmXGRdi0K58Ed67wro3YxXLkPkV3ri3BveyiRVVVktdusRKrmy45C9uvXJsBaCHcjCn+nTOi/8EjxxMbwEbG/Ya54WQw4gBRaANttvLQAdV+K3EouNODZ+oqPuuCytjRLgA6SOcCgvhUOk7E4O7mPso74shXcqJd6n1XtynAArmeCzDfKjLCd5qfroEI/PzGnQpBC9+fWSGljIOR0yW+nj3nXzlt2biUn/Et+8d6cdpfZ0Qr+sQMrWstbZvitvRqIpag+L6zWBKoDuFqAwbALbM+uEtSPPKwwLFVFvjYH9/yjvp79ZaFCdheIFiy+RwJCQXsH/YfgP+z13goKPKWc=
 language: python
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-# command to install dependencies
-install: "pip install -r test-requirements.txt"
-# command to run tests
+- '2.7'
+- '3.4'
+- '3.5'
+install: pip install -r test-requirements.txt
 script: py.test tests/
+
