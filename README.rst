@@ -57,19 +57,19 @@ Sample Code
     # LogLevel's only required parameter is "message", all others are optional.
 
     # LogLevel: DEBUG
-    logging.debug(message='DEBUG Message', title='DEBUG Title', fallback='', fields='')
+    logging.debug(message='DEBUG Message', title='DEBUG Title', fields='')
 
     # LogLevel: INFO
-    logging.info(message='INFO Message', title='INFO Title', fallback='', fields='')
+    logging.info(message='INFO Message', title='INFO Title', fields='')
 
     # LogLevel: WARN
-    logging.warn(message='WARN Message', title='WARN Title', fallback='', fields='')
+    logging.warn(message='WARN Message', title='WARN Title', fields='')
 
     # LogLevel: ERROR
-    logging.error(message='ERROR Message', title='ERROR Title', fallback='', fields='')
+    logging.error(message='ERROR Message', title='ERROR Title', fields='')
 
     # LogLevel: CUSTOM
-    logging.message(message='CUSTOM Message', title='CUSTOM Title', fallback='CUSTOM Fallback', color='good',
+    logging.message(message='CUSTOM Message', title='CUSTOM Title', color='good',
                     fields=[{"title": "CUSTOM", "value": "test", "short": "true"}],
                     log_level=40)
 

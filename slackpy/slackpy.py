@@ -45,62 +45,47 @@ class SlackLogger:
         else:
             raise ValueError('argument lv is invalid. Choose from values in ErrorLv Class.')
 
-    def __build_payload(self, message, title, color, fallback, fields):
+    def __build_payload(self, message, title, color, fields):
 
-        if fields is '':
-            __fields = {
-                "title": title,
-                "text": message,
-                "color": color,
-                "fallback": fallback
-            }
-
-            __attachments = {
-                "fields": __fields
-            }
-        else:
-            __attachments = [{
-                "fallback": fallback,
-                "color": color,
-                "text": message,
-                "fields": fields
-            }]
+        __attachments = [{
+            "title": title,
+            "color": color,
+            "text": message,
+            "fields": fields,
+            "mrkdwn_in": ['text', 'fields', 'title']
+        }]
 
         payload = {
             "channel": self.channel,
             "username": self.username,
-            "attachments": __attachments
+            "attachments": __attachments,
         }
 
         return payload
 
-    def __send_notification(self, message, title, color='good', fallback='',
+    def __send_notification(self, message, title, color='good',
                             fields='', log_level=LogLv.INFO):
         """Send a message to a channel.
         Args:
             title: The message title.
             message: The message body.
             color: Can either be one of 'good', 'warning', 'danger',
-                   or any hex color code
-            fallback: What is shown to IRC/fallback clients
+                   or any hex color code.
 
         Returns:
-            api_response:
+            response: A Response of Slack API.
 
         Raises:
-            TODO:
+            Exception:
         """
         if log_level < self.log_level:
             return None
 
-        if fallback is '':
-            fallback = title
-
-        payload = self.__build_payload(message, title, color, fallback, fields)
+        payload = self.__build_payload(message, title, color, fields)
 
         try:
             response = requests.post(self.web_hook_url,
-                                     data=json.dumps(payload))
+                                     data=json.dumps(payload), allow_redirects=False)
 
         except Exception:
             raise Exception(traceback.format_exc())
@@ -110,49 +95,44 @@ class SlackLogger:
                 return response
 
             else:
-                raise Exception(response.content.decode())
+                raise Exception('POST failed.')
 
-    def debug(self, message, title='Slack Notification', fallback='',
+    def debug(self, message, title='Slack Notification',
               fields=''):
         return self.__send_notification(message=message,
                                         title=title,
                                         color='#03A9F4',
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=LogLv.DEBUG)
 
-    def info(self, message, title='Slack Notification', fallback='',
+    def info(self, message, title='Slack Notification',
              fields=''):
         return self.__send_notification(message=message,
                                         title=title,
                                         color='good',
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=LogLv.INFO)
 
-    def warn(self, message, title='Slack Notification', fallback='',
+    def warn(self, message, title='Slack Notification',
              fields=''):
         return self.__send_notification(message=message,
                                         title=title,
                                         color='warning',
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=LogLv.WARN)
 
-    def error(self, message, title='Slack Notification', fallback='',
+    def error(self, message, title='Slack Notification',
               fields=''):
         return self.__send_notification(message=message,
                                         title=title,
                                         color='danger',
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=LogLv.ERROR)
 
-    def message(self, message, title='Slack Notification', fallback='',
+    def message(self, message, title='Slack Notification',
                 color='good', fields='', log_level=LogLv.ERROR):
         return self.__send_notification(message=message,
                                         title=title,
                                         color=color,
-                                        fallback=fallback,
                                         fields=fields,
                                         log_level=log_level)
