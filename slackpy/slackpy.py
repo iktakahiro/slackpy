@@ -63,7 +63,7 @@ class SlackLogger:
 
         return payload
 
-    def __send_notification(self, message, title, color='good', fallback='',
+    def __send_notification(self, message, title, color='good',
                             fields='', log_level=LogLv.INFO):
         """Send a message to a channel.
         Args:
@@ -81,7 +81,7 @@ class SlackLogger:
         if log_level < self.log_level:
             return None
 
-        payload = self.__build_payload(message, title, color, fallback, fields)
+        payload = self.__build_payload(message, title, color, fields)
 
         try:
             response = requests.post(self.web_hook_url,
