@@ -45,29 +45,31 @@ class SlackLogger:
         else:
             raise ValueError('argument lv is invalid. Choose from values in ErrorLv Class.')
 
-    def __build_payload(self, message, title, color, fields):
+    def __build_payload(self, message, title, title_link, color, fields):
 
         __attachments = [{
-            "title": title,
-            "color": color,
-            "text": message,
-            "fields": fields,
-            "mrkdwn_in": ['text', 'fields', 'title']
+            'title': title,
+            'title_link': title_link,
+            'color': color,
+            'text': message,
+            'fields': fields,
+            'mrkdwn_in': ['text', 'fields', 'title']
         }]
 
         payload = {
-            "channel": self.channel,
-            "username": self.username,
-            "attachments": __attachments,
+            'channel': self.channel,
+            'username': self.username,
+            'attachments': __attachments,
         }
 
         return payload
 
-    def __send_notification(self, message, title, color='good',
+    def __send_notification(self, message, title, title_link='', color='good',
                             fields='', log_level=LogLv.INFO):
         """Send a message to a channel.
         Args:
-            title: The message title.
+            title: A message title.
+            title: A link of the message title.
             message: The message body.
             color: Can either be one of 'good', 'warning', 'danger',
                    or any hex color code.
@@ -81,7 +83,7 @@ class SlackLogger:
         if log_level < self.log_level:
             return None
 
-        payload = self.__build_payload(message, title, color, fields)
+        payload = self.__build_payload(message, title, title_link, color, fields)
 
         try:
             response = requests.post(self.web_hook_url,
@@ -97,42 +99,43 @@ class SlackLogger:
             else:
                 raise Exception('POST failed.')
 
-    def debug(self, message, title='Slack Notification',
-              fields=''):
+    def debug(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,
                                         title=title,
+                                        title_link=title_link,
                                         color='#03A9F4',
                                         fields=fields,
                                         log_level=LogLv.DEBUG)
 
-    def info(self, message, title='Slack Notification',
-             fields=''):
+    def info(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,
                                         title=title,
+                                        title_link=title_link,
                                         color='good',
                                         fields=fields,
                                         log_level=LogLv.INFO)
 
-    def warn(self, message, title='Slack Notification',
-             fields=''):
+    def warn(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,
                                         title=title,
+                                        title_link=title_link,
                                         color='warning',
                                         fields=fields,
                                         log_level=LogLv.WARN)
 
-    def error(self, message, title='Slack Notification',
-              fields=''):
+    def error(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,
                                         title=title,
+                                        title_link=title_link,
                                         color='danger',
                                         fields=fields,
                                         log_level=LogLv.ERROR)
 
-    def message(self, message, title='Slack Notification',
-                color='good', fields='', log_level=LogLv.ERROR):
+    def message(self, message, title='Slack Notification', title_link='', color='good', fields='',
+                log_level=LogLv.ERROR):
         return self.__send_notification(message=message,
                                         title=title,
+                                        title_link=title_link,
                                         color=color,
                                         fields=fields,
                                         log_level=log_level)
