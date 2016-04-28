@@ -204,3 +204,9 @@ class TestSlackLogger:
 
         response = logger.info('test_omit_title_link', 'slackpy repository')
         assert response.status_code == 200
+
+    def test_minimum_post_to_valid_web_hook(self):
+        logger = SlackLogger(VALID_WEB_HOOK)
+
+        response = logger.info('test_minimum_post_to_valid_web_hook')
+        assert response.status_code == 200
