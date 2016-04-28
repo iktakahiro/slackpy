@@ -74,7 +74,8 @@ Sample Code
                     log_level=40)
 
     # Title Link (New v2.1.0)
-        logging.info(message='INFO Message', title='slackpy Repository here', title_link='https://github.com/iktakahiro/slackpy')
+    logging.info(message='INFO Message', title='slackpy Repository here',
+                 title_link='https://github.com/iktakahiro/slackpy')
 
 Correspondence table
 ~~~~~~~~~~~~~~~~~~~~
