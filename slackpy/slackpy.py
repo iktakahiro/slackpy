@@ -48,18 +48,18 @@ class SlackLogger:
     def __build_payload(self, message, title, title_link, color, fields):
 
         __attachments = [{
-            "title": title,
-            "title_link": title_link,
-            "color": color,
-            "text": message,
-            "fields": fields,
-            "mrkdwn_in": ['text', 'fields', 'title']
+            'title': title,
+            'title_link': title_link,
+            'color': color,
+            'text': message,
+            'fields': fields,
+            'mrkdwn_in': ['text', 'fields', 'title']
         }]
 
         payload = {
-            "channel": self.channel,
-            "username": self.username,
-            "attachments": __attachments,
+            'channel': self.channel,
+            'username': self.username,
+            'attachments': __attachments,
         }
 
         return payload
