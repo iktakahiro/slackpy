@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 import pytest
 from slackpy.slackpy import SlackLogger, LOG_LEVELS, LogLv
 
@@ -169,18 +170,23 @@ class TestSlackLogger:
         }
         ]
 
+        time.sleep(2)
         response = logger.debug('DEBUG', 'test_post_to_valid_web_hook', fields=fields)
         assert response.status_code == 200
 
+        time.sleep(2)
         response = logger.info('INFO', 'test_post_to_valid_web_hook', fields=fields)
         assert response.status_code == 200
 
+        time.sleep(2)
         response = logger.warn('WARN', 'test_post_to_valid_web_hook', fields=fields)
         assert response.status_code == 200
 
+        time.sleep(2)
         response = logger.error('ERROR', 'test_post_to_valid_web_hook', fields=fields)
         assert response.status_code == 200
 
+        time.sleep(2)
         response = logger.message('CUSTOM', 'test_post_to_valid_web_hook',
                                   title_link='https://github.com/iktakahiro/slackpy',
                                   fields=fields, color='warning', log_level=20)
@@ -189,6 +195,7 @@ class TestSlackLogger:
     def test_post_to_invalid_web_hook(self):
         logger = SlackLogger(DUMMY_WEB_HOOK)
 
+        time.sleep(2)
         with pytest.raises(Exception) as exc_info:
             logger.error('Test Message', 'Test Title')
         assert 'Failed' in str(exc_info.value)
@@ -196,17 +203,20 @@ class TestSlackLogger:
     def test_title_link(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
+        time.sleep(2)
         response = logger.info('test_title_link', 'slackpy repository', 'https://github.com/iktakahiro/slackpy')
         assert response.status_code == 200
 
     def test_omit_title_link(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
+        time.sleep(2)
         response = logger.info('test_omit_title_link', 'slackpy repository')
         assert response.status_code == 200
 
     def test_minimum_post_to_valid_web_hook(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
+        time.sleep(2)
         response = logger.info('test_minimum_post_to_valid_web_hook')
         assert response.status_code == 200

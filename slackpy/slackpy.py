@@ -87,7 +87,7 @@ class SlackLogger:
 
         try:
             response = requests.post(self.web_hook_url,
-                                     data=json.dumps(payload), allow_redirects=False)
+                                     data=json.dumps(payload), timeout=3, allow_redirects=False)
 
         except Exception:
             raise Exception(traceback.format_exc())
