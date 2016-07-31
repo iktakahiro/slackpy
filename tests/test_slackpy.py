@@ -21,10 +21,10 @@ except KeyError:
 class TestSlackLogger:
     def test_channel_value_error(self):
         with pytest.raises(ValueError):
-            SlackLogger(DUMMY_WEB_HOOK, 'dummy_channel', 'Test User')
+            SlackLogger(DUMMY_WEB_HOOK, 'dummy_channel', 'Test User', 'http://example.com/example.png')
 
     def test_build_payload_with_all_parameters(self):
-        logger = SlackLogger(DUMMY_WEB_HOOK, '#dummy_channel', 'Test User')
+        logger = SlackLogger(DUMMY_WEB_HOOK, '#dummy_channel', 'Test User', 'http://example.com/example.png')
         actual = logger._SlackLogger__build_payload('test_build_payload_with_all_parameters',
                                                     'Test Title',
                                                     'https://github.com/iktakahiro/slackpy',
@@ -34,6 +34,7 @@ class TestSlackLogger:
         expected = {
             'channel': '#dummy_channel',
             'username': 'Test User',
+            'icon_url': 'http://example.com/example.png',
             'attachments': [
                 {'color': 'Color Name',
                  'text': 'test_build_payload_with_all_parameters',
@@ -57,6 +58,7 @@ class TestSlackLogger:
         expected = {
             'channel': None,
             'username': 'Logger',
+            'icon_url': None,
             'attachments': [
                 {'color': 'Color Name',
                  'text': 'test_build_payload_without_specifying_optional_parameters',
@@ -93,6 +95,7 @@ class TestSlackLogger:
         expected = {
             'channel': '#dummy_channel',
             'username': 'Test User',
+            'icon_url': None,
             'attachments': [
                 {'color': 'Color Name',
                  'text': 'test_build_payload_with_custom_fields',
@@ -156,7 +159,7 @@ class TestSlackLogger:
         assert actual is None
 
     def test_post_to_valid_web_hook(self):
-        logger = SlackLogger(VALID_WEB_HOOK)
+        logger = SlackLogger(VALID_WEB_HOOK, icon_url="http://lorempixel.com/48/48")
         logger.set_log_level(LogLv.DEBUG)
 
         fields = [{
