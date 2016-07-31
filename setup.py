@@ -6,14 +6,14 @@ from setuptools import setup
 __author__ = 'Takahiro Ikeuchi'
 
 requires = ['requests', 'retrying']
-tests_requires = ['requests', 'pytest']
+tests_requires = ['requests', 'retrying', 'pytest']
 extras_requires = {
     ':python_version<"3.4"': ["enum34"],
 }
 
 setup(
     name="slackpy",
-    version="2.2.0",
+    version="2.2.1",
     packages=['slackpy'],
     install_requires=requires,
     extras_require=extras_requires,
