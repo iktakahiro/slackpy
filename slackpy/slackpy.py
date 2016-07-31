@@ -22,10 +22,11 @@ LOG_LEVELS = list(map(int, LogLv))
 
 
 class SlackLogger:
-    def __init__(self, web_hook_url, channel=None, username='Logger'):
+    def __init__(self, web_hook_url, channel=None, username='Logger', icon_url=None):
 
         self.web_hook_url = web_hook_url
         self.username = username
+        self.icon_url = icon_url
         self.log_level = LogLv.INFO
 
         if channel is None:
@@ -59,6 +60,7 @@ class SlackLogger:
         payload = {
             'channel': self.channel,
             'username': self.username,
+            'icon_url': self.icon_url,
             'attachments': __attachments,
         }
 
@@ -97,7 +99,7 @@ class SlackLogger:
                 return response
 
             else:
-                raise Exception('POST failed.')
+                raise Exception('failed to post a message to Slack.')
 
     def debug(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,
