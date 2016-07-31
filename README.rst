@@ -41,9 +41,10 @@ Sample Code
     INCOMING_WEB_HOOK = 'your_web_hook_url'
     CHANNEL = '#general'
     USER_NAME = 'Logger'
+    ICON_URL = 'http://lorempixel.com/48/48'
 
     # Create a new instance.
-    logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME)
+    logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME, ICON_URL)
 
     # You can set a log level. Default level is INFO.
     logging.set_log_level(slackpy.LogLv.DEBUG) # Or logging.set_log_level(10)
