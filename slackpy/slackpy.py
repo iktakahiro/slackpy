@@ -6,8 +6,13 @@ import json
 import traceback
 import requests
 from enum import IntEnum, unique
+from retrying import retry
 
 __author__ = 'Takahiro Ikeuchi'
+
+MULTIPLIER = 1000
+MAX_DELAY = 30000
+EXPONENTIAL_MAX = 8000
 
 
 @unique
@@ -66,6 +71,22 @@ class SlackLogger:
 
         return payload
 
+    @retry(wait_exponential_multiplier=MULTIPLIER, stop_max_delay=MAX_DELAY, wait_exponential_max=EXPONENTIAL_MAX)
+    def __post(self, payload):
+        try:
+            response = requests.post(self.web_hook_url,
+                                     data=json.dumps(payload), timeout=3, allow_redirects=False)
+
+        except Exception:
+            raise Exception(traceback.format_exc())
+
+        else:
+            if response.status_code == 200:
+                return response
+
+            else:
+                raise Exception('failed to post a message to Slack.')
+
     def __send_notification(self, message, title, title_link='', color='good',
                             fields='', log_level=LogLv.INFO):
         """Send a message to a channel.
@@ -88,18 +109,12 @@ class SlackLogger:
         payload = self.__build_payload(message, title, title_link, color, fields)
 
         try:
-            response = requests.post(self.web_hook_url,
-                                     data=json.dumps(payload), timeout=3, allow_redirects=False)
+            response = self.__post(payload)
 
         except Exception:
             raise Exception(traceback.format_exc())
 
-        else:
-            if response.status_code == 200:
-                return response
-
-            else:
-                raise Exception('failed to post a message to Slack.')
+        return response
 
     def debug(self, message, title='Slack Notification', title_link='', fields=''):
         return self.__send_notification(message=message,

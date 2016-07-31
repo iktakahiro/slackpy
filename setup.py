@@ -5,7 +5,7 @@ from setuptools import setup
 
 __author__ = 'Takahiro Ikeuchi'
 
-requires = ['requests']
+requires = ['requests', 'retrying']
 tests_requires = ['requests', 'pytest']
 extras_requires = {
     ':python_version<"3.4"': ["enum34"],
