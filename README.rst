@@ -10,7 +10,7 @@
 slackpy
 =======
 
-slackpy is simple and useful `Slack`_ client library for logging.
+A Simple and Human Friendly `Slack`_ Client for Logging.
 
 Use Case
 --------
@@ -46,7 +46,7 @@ Sample Code
     # Create a new instance.
     logging = slackpy.SlackLogger(INCOMING_WEB_HOOK, CHANNEL, USER_NAME, ICON_URL)
 
-    # You can set a log level. Default level is INFO.
+    # You can set a log level. The default level is INFO.
     logging.set_log_level(slackpy.LogLv.DEBUG) # Or logging.set_log_level(10)
 
     ## Minimum Parameter
@@ -78,8 +78,6 @@ Sample Code
     logging.info(message='INFO Message', title='slackpy Repository here',
                  title_link='https://github.com/iktakahiro/slackpy')
 
-Correspondence table
-~~~~~~~~~~~~~~~~~~~~
 
 +-----------+----------------+------------------------+
 | Method    | LogLevel       | Color                  |
@@ -93,7 +91,7 @@ Correspondence table
 | error()   | ERROR (40)     | danger (red)           |
 +-----------+----------------+------------------------+
 
-LogLevel based on logging standard library
+The definition of the log level is based on the standard library.
 (https://docs.python.org/3.4/library/logging.html#levels)
 
 Command line
@@ -129,10 +127,10 @@ For AWS Lamdba
    # First, pip install to top of project directory.
    pip install slackpy -t .
 
-   # Second, Archive your source code and dependency packages.
+   # Second, archive your source code and dependency packages.
    zip -r src.zip lambda_function.py slackpy enum requests
 
-   # Finally, Upload your src.zip
+   # Finally, upload src.zip
 
 About Versioning
 ----------------

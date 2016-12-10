@@ -17,7 +17,7 @@ setup(
     packages=['slackpy'],
     install_requires=requires,
     extras_require=extras_requires,
-    description="Simple and Useful Slack client library",
+    description="A Simple and Human Friendly Slack Client for Logging.",
     long_description=open('README.rst').read(),
     author='Takahiro Ikeuchi',
     author_email='takahiro.ikeuchi@gmail.com',

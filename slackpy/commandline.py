@@ -14,17 +14,17 @@ def main():
                         '--message',
                         type=str,
                         required=True,
-                        help='Text of the message to send.')
+                        help='Message body.')
     parser.add_argument('-c',
                         '--channel',
                         required=False,
-                        help='Slack Channel. The channel must be started with # or @',
+                        help='Slack Channel. channel must be started with # or @',
                         default=None)
     parser.add_argument('-t',
                         '--title',
                         type=str,
                         required=False,
-                        help='Title of the message to send.',
+                        help='Message title.',
                         default='Slack Notification')
     parser.add_argument('-n',
                         '--name',
