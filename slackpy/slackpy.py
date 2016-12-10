@@ -91,14 +91,14 @@ class SlackLogger:
                             fields='', log_level=LogLv.INFO):
         """Send a message to a channel.
         Args:
-            title: A message title.
-            title: A link of the message title.
-            message: The message body.
-            color: Can either be one of 'good', 'warning', 'danger',
-                   or any hex color code.
+            title: Message title.
+            title_link: Link of the message title.
+            message: Message body.
+            color: Message line color on Slack. This parameter should be one of the following values: 'good', 'warning',
+             'danger' or any hex color code.
 
         Returns:
-            response: A Response of Slack API.
+            response: Response of Slack API.
 
         Raises:
             Exception:
