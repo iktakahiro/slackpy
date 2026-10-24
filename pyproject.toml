@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "slackpy"
-version = "2.2.2"
+version = "3.0.0"
 description = "A Simple and Human Friendly Slack Client for Logging."
 readme = "README.rst"
 requires-python = ">=3.11"
