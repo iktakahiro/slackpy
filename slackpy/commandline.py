@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 from slackpy import SlackLogger, LogLv, LOG_LEVELS
 from argparse import ArgumentParser
@@ -40,9 +37,10 @@ def main():
                         '--level',
                         type=int,
                         default=20,
-                        choices=LOG_LEVELS.append([1, 2, 3]))
+                        choices=LOG_LEVELS + [1, 2, 3])
 
     args = parser.parse_args()
+    args.level = {1: LogLv.INFO, 2: LogLv.WARN, 3: LogLv.ERROR}.get(args.level, args.level)
 
     try:
         web_hook_url = os.environ["SLACK_INCOMING_WEB_HOOK"]
