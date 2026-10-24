@@ -4,9 +4,6 @@
 .. image:: https://img.shields.io/pypi/dm/slackpy.svg
     :target: https://pypi.python.org/pypi/slackpy
 
-.. image:: https://travis-ci.org/iktakahiro/slackpy.svg?branch=master
-    :target: https://travis-ci.org/iktakahiro/slackpy
-
 slackpy
 =======
 
@@ -22,6 +19,8 @@ Use Case
 Install
 -------
 
+Requires Python 3.11 or newer.
+
 .. code:: sh
 
     pip install slackpy
@@ -29,7 +28,9 @@ Install
 Dependencies
 ------------
 
--  requests
+- requests>=2.32.5
+- certifi>=2026.10.19
+- retrying
 
 Sample Code
 -----------
@@ -92,7 +93,7 @@ Sample Code
 +-----------+----------------+------------------------+
 
 The definition of the log level is based on the standard library.
-(https://docs.python.org/3.4/library/logging.html#levels)
+(https://docs.python.org/3/library/logging.html#levels)
 
 Command line
 ------------
@@ -128,7 +129,7 @@ For AWS Lamdba
    pip install slackpy -t .
 
    # Second, archive your source code and dependency packages.
-   zip -r src.zip lambda_function.py slackpy enum requests
+   zip -r src.zip lambda_function.py slackpy requests certifi charset_normalizer idna urllib3 retrying
 
    # Finally, upload src.zip
 

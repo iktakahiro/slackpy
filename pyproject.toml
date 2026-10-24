@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slackpy"
+version = "2.2.2"
+description = "A Simple and Human Friendly Slack Client for Logging."
+readme = "README.rst"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Takahiro Ikeuchi", email = "takahiro.ikeuchi@gmail.com"}]
+keywords = ["Slack", "Slack Client"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: System :: Logging",
+    "Topic :: Communications :: Chat",
+]
+dependencies = ["requests>=2.32.5", "certifi>=2026.10.19", "retrying"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/iktakahiro/slackpy"
+
+[project.scripts]
+slackpy = "slackpy.commandline:main"
+
+[tool.setuptools]
+packages = ["slackpy"]

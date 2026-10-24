@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 import time
 import pytest
@@ -10,12 +7,10 @@ __author__ = 'Takahiro Ikeuchi'
 
 DUMMY_WEB_HOOK = 'http://dummy_url'
 
-try:
-    VALID_WEB_HOOK = os.environ['SLACK_INCOMING_TEST_WEB_HOOK']
-
-except KeyError:
-    print('ERROR: Please set a SLACK_INCOMING_TEST_WEB_HOOK variable in ' +
-          'your environment.')
+VALID_WEB_HOOK = os.environ.get('SLACK_INCOMING_TEST_WEB_HOOK')
+requires_webhook = pytest.mark.skipif(
+    not VALID_WEB_HOOK, reason='SLACK_INCOMING_TEST_WEB_HOOK is not configured'
+)
 
 
 class TestSlackLogger:
@@ -158,6 +153,7 @@ class TestSlackLogger:
         actual = logger.warn('TEST')
         assert actual is None
 
+    @requires_webhook
     def test_post_to_valid_web_hook(self):
         logger = SlackLogger(VALID_WEB_HOOK, icon_url="http://lorempixel.com/48/48")
         logger.set_log_level(LogLv.DEBUG)
@@ -195,14 +191,19 @@ class TestSlackLogger:
                                   fields=fields, color='warning', log_level=20)
         assert response.status_code == 200
 
-    def test_post_to_invalid_web_hook(self):
+    def test_post_to_invalid_web_hook(self, monkeypatch):
+        def fail_post(*args, **kwargs):
+            raise ConnectionError('Failed to connect')
+
+        monkeypatch.setattr('slackpy.slackpy.requests.post', fail_post)
+        # Exercise exception propagation without retry delays or network access.
         logger = SlackLogger(DUMMY_WEB_HOOK)
-
-        time.sleep(2)
-        with pytest.raises(Exception) as exc_info:
+        monkeypatch.setattr(logger, '_SlackLogger__post',
+                            lambda payload: SlackLogger._SlackLogger__post.__wrapped__(logger, payload))
+        with pytest.raises(Exception, match='Failed to connect'):
             logger.error('Test Message', 'Test Title')
-        assert 'Failed' in str(exc_info.value)
 
+    @requires_webhook
     def test_title_link(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
@@ -210,6 +211,7 @@ class TestSlackLogger:
         response = logger.info('test_title_link', 'slackpy repository', 'https://github.com/iktakahiro/slackpy')
         assert response.status_code == 200
 
+    @requires_webhook
     def test_omit_title_link(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
@@ -217,6 +219,7 @@ class TestSlackLogger:
         response = logger.info('test_omit_title_link', 'slackpy repository')
         assert response.status_code == 200
 
+    @requires_webhook
     def test_minimum_post_to_valid_web_hook(self):
         logger = SlackLogger(VALID_WEB_HOOK)
 
